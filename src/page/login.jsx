@@ -8,6 +8,7 @@ export default class login extends React.Component {
   render() {
     return (
       <div style={{ textAlign: 'center' }} className="example-input">
+        {/* <input type="file" ref={input => { this.fileInput = input; }} /> */}
         <br />
         <Input size="large" type='text' placeholder='请输入账号' defaultValue={this.state.userName} onChange={this.userNameChange} />
         <br />
@@ -21,8 +22,13 @@ export default class login extends React.Component {
       </div>
     )
   }
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(this.fileInput.files)
+  }
   userNameChange = (e) => {
-    // this.setState({ userName: e.target.value })
+
+    this.setState({ userName: e.target.value })
   }
   passwordChange = (e) => {
     this.setState({ pws: md5(e.target.value).toUpperCase() })

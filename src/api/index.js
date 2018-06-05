@@ -2,8 +2,9 @@
 import axios from 'axios';
 import { notification } from 'antd';
 // 请求的默认地址
-// axios.defaults.baseURL = "http://192.168.1.101:8080/user";
-axios.defaults.baseURL = "http://140.143.85.220:8080/user";
+// axios.defaults.baseURL = "http://140.143.85.220:8080/user";
+//axios.defaults.baseURL = "http://192.168.1.16:8080/user"; //王
+axios.defaults.baseURL = "http://192.168.1.15:8080/user"; //田
 
 // 请求超时时间限制
 axios.defaults.timeout = 5000;
