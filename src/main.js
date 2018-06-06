@@ -15,13 +15,13 @@ if (location.pathname == '/admin.html') {
 	querySiteName({ doMain: '' })
 		.then(res => {
 			if (res.code == 0) {
-				sessionStorage.setItem('loginfo', JSON.stringify(res.data))
+				localStorage.setItem('loginfo', JSON.stringify(res.data))
 				ReactDOM.render(
 					<App />,
 					document.getElementById('Index')
 				);
 			} else {
-				// sessionStorage.setItem('loginfo', JSON.stringify(res.data))
+				// localStorage.setItem('loginfo', JSON.stringify(res.data))
 				// ReactDOM.render(
 				// 	<App />,
 				// 	document.getElementById('Index')

@@ -2,9 +2,9 @@
 import axios from 'axios';
 import { notification } from 'antd';
 // 请求的默认地址
-// axios.defaults.baseURL = "http://140.143.85.220:8080/user";
+axios.defaults.baseURL = "http://140.143.85.220:8080/user";
 //axios.defaults.baseURL = "http://192.168.1.16:8080/user"; //王
-axios.defaults.baseURL = "http://192.168.1.15:8080/user"; //田
+// axios.defaults.baseURL = "http://192.168.1.15:8080/user"; //田
 
 // 请求超时时间限制
 axios.defaults.timeout = 5000;
@@ -17,11 +17,11 @@ axios.interceptors.request.use((config) => {
     // config.method === 'post'
     //在发送请求之前做某件事
     if (config.url == '/org/query_site_name') {
-        DATA = JSON.parse(sessionStorage.getItem('loginfo'))
+        DATA = JSON.parse(localStorage.getItem('loginfo'))
     } else if (config.url == '/user/user_login') {
         config.data.siteHierarchy = DATA.hierarchy
     } else {
-        loginfoData = JSON.parse(sessionStorage.getItem('loginfoData'))
+        loginfoData = JSON.parse(localStorage.getItem('loginfoData'))
         config.data.token = loginfoData.token
     }
     config.data = qs.stringify(config.data)
