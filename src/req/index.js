@@ -26,3 +26,12 @@ export const query_page_method = (data) => {
             }
         })
 }
+// 测试
+export const abcd = (data) => {
+    return axios.post(`/abcd`, data)
+        .then(res => {
+            if (res.status === 200) {
+                return res.data
+            }
+        })
+}

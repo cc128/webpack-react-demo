@@ -12,6 +12,10 @@ if (location.pathname == '/admin.html') {
 		document.getElementById('Admin')
 	);
 } else {
+	// ReactDOM.render(
+	// 	<App />,
+	// 	document.getElementById('Index')
+	// );
 	querySiteName({ doMain: '' })
 		.then(res => {
 			if (res.code == 0) {
