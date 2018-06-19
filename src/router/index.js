@@ -1,16 +1,17 @@
 import React from 'react';
-import { IsPC } from '../tool/tool.js'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import { Button, Input } from 'antd';
-import { user_login } from '../req'
 import Home from '../page/home/home';
+import a from '../page/home/a';
+import b from '../page/home/b';
 import Login from '../page/login';
 export const Index = () => (
     <Router>
         <div>
-            <Route path="/" component={Login} />
+            {/* <Route component={Login} /> */}
             <Route path="/Login" component={Login} />
             <Route path="/Home" component={Home} />
+            <Route path="/a" component={a} />
+            <Route path="/b" component={b} />
         </div>
     </Router>
 )

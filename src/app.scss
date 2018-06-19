@@ -1,9 +1,12 @@
 @import '~antd/dist/antd.css';
+@import '~antd-mobile/dist/antd-mobile.css';
+
+@import './page/login.scss';
 html,
 body {
     height: 100%;
     width: 100%;
-    background: #ccc;
+    // background: #ccc;
 }
 
 img {

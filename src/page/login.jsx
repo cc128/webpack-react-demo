@@ -1,7 +1,7 @@
 import React from 'react';
 import { IsPC } from '../tool/tool.js'
 import { user_login, query_page_method, abcd } from '../req'
-import { Button, Input } from 'antd';
+import { Button, Input, notification } from 'antd';
 import md5 from 'md5';
 export default class login extends React.Component {
   state = { userName: '17628285312', pws: '', praise: false };
@@ -34,7 +34,7 @@ export default class login extends React.Component {
         if (res.code == 0) {
           localStorage.setItem('loginfoData', JSON.stringify(res.data))
           this.queryPageMethodFunc()
-        } else {
+          notification.success({ message: '成功', description: '登录成功' })
         }
       })
   }
@@ -44,7 +44,7 @@ export default class login extends React.Component {
       .then(res => {
         if (res.code == 0) {
           localStorage.setItem('loginfoMenu', JSON.stringify(res.data));
-          // this.props.history.push("/Home");
+          this.props.history.push("/Home");
         }
       })
   }

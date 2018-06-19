@@ -21,11 +21,15 @@ axios.interceptors.request.use((config) => {
     // axios.defaults.headers.common['X-CSRFToken'] = 'xxxxxxxx'
     // config.method === 'post'
     //在发送请求之前做某件事
-    if (config.url == '/org/query_site_name') {
+
+    if (config.url != '/org/query_site_name' && !DATA) {
         DATA = JSON.parse(localStorage.getItem('loginfo'))
-    } else if (config.url == '/user/user_login') {
+        console.log(33333, DATA)
+    }
+    if (config.url == '/user/user_login') {
+        console.log(222, DATA)
         config.data.siteHierarchy = DATA.hierarchy
-    } else {
+    } else if (config.url != '/org/query_site_name') {
         loginfoData = JSON.parse(localStorage.getItem('loginfoData'))
         config.data.token = loginfoData.token
     }
@@ -38,6 +42,9 @@ axios.interceptors.request.use((config) => {
 
 axios.interceptors.response.use(function (res) {
     //在这里对返回的数据进行处理
+    if (res.config.url.includes("/org/query_site_name") && res.data.code === 0) {
+        localStorage.setItem('loginfo', JSON.stringify(res.data.data))
+    }
     if (res.data.code === 0) {
         if (res.data.msg !== '成功') {
             notification.success({ message: '成功', description: res.data.msg })

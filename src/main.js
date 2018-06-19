@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import App from './app.jsx';
 import Admin from './admin/admin';
 import { querySiteName } from './req'
-import { Button, Input } from 'antd';
 
 if (location.pathname == '/admin.html') {
 	ReactDOM.render(
@@ -19,7 +18,7 @@ if (location.pathname == '/admin.html') {
 	querySiteName({ doMain: '' })
 		.then(res => {
 			if (res.code == 0) {
-				localStorage.setItem('loginfo', JSON.stringify(res.data))
+				// localStorage.setItem('loginfo', JSON.stringify(res.data))
 				ReactDOM.render(
 					<App />,
 					document.getElementById('Index')
