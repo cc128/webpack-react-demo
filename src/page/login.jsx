@@ -19,7 +19,7 @@ export default class login extends React.Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.fileInput.files)
+    // console.log(this.fileInput.files)
   }
   userNameChange = (e) => {
     this.setState({ userName: e.target.value })

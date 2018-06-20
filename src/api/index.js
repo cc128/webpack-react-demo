@@ -24,10 +24,8 @@ axios.interceptors.request.use((config) => {
 
     if (config.url != '/org/query_site_name' && !DATA) {
         DATA = JSON.parse(localStorage.getItem('loginfo'))
-        console.log(33333, DATA)
     }
     if (config.url == '/user/user_login') {
-        console.log(222, DATA)
         config.data.siteHierarchy = DATA.hierarchy
     } else if (config.url != '/org/query_site_name') {
         loginfoData = JSON.parse(localStorage.getItem('loginfoData'))
