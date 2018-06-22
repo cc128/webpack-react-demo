@@ -1,6 +1,6 @@
 import React from 'react';
 import { IsPC } from '../tool/tool.js'
-import { user_login, query_page_method, abcd } from '../req'
+import { user_login, query_page_method } from '../req'
 import { Button, Input, notification } from 'antd';
 import md5 from 'md5';
 export default class login extends React.Component {

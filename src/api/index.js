@@ -7,8 +7,8 @@ import { notification } from 'antd';
 // axios.defaults.baseURL = "http://192.168.1.16:8080/user"; //田
 // axios.defaults.baseURL = "http://192.168.1.15:8080/user"; //王
 // axios.defaults.baseURL = "http://192.168.1.17:8080/user"; //曾
-axios.defaults.baseURL = "http://localhost:3001";
-// axios.defaults.baseURL = "https://m.toutiao.com";
+// axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "https://m.toutiao.com";
 
 // 请求超时时间限制
 axios.defaults.timeout = 5000;
@@ -22,15 +22,15 @@ axios.interceptors.request.use((config) => {
     // config.method === 'post'
     //在发送请求之前做某件事
 
-    if (config.url != '/org/query_site_name' && !DATA) {
-        DATA = JSON.parse(localStorage.getItem('loginfo'))
-    }
-    if (config.url == '/user/user_login') {
-        config.data.siteHierarchy = DATA.hierarchy
-    } else if (config.url != '/org/query_site_name') {
-        loginfoData = JSON.parse(localStorage.getItem('loginfoData'))
-        config.data.token = loginfoData.token
-    }
+    // if (config.url != '/org/query_site_name' && !DATA) {
+    //     DATA = JSON.parse(localStorage.getItem('loginfo'))
+    // }
+    // if (config.url == '/user/user_login') {
+    //     config.data.siteHierarchy = DATA.hierarchy
+    // } else if (config.url != '/org/query_site_name') {
+    //     loginfoData = JSON.parse(localStorage.getItem('loginfoData'))
+    //     // config.data.token = loginfoData.token
+    // }
     config.data = qs.stringify(config.data)
     return config;
 }, (error) => {

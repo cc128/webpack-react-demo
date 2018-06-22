@@ -7,7 +7,7 @@ import Login from '../page/login';
 export const Index = () => (
     <Router>
         <div>
-            {/* <Route exact path="/" component={Login} /> */}
+            <Route exact path="/" component={Login} />
             {/* <Route exact path="/Login" component={Login} /> */}
             <Route path="/Home" component={Home}/>
             <Route path="/a" component={a} />

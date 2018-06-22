@@ -26,9 +26,18 @@ export const query_page_method = (data) => {
             }
         })
 }
-// 测试
-export const abcd = (data) => {
-    return axios.post(`/abcd`, data)
+// 头条
+export const get_as_cp = (data) => {
+    return axios.get(`/get_as_cp`, data)
+        .then(res => {
+            if (res.status === 200) {
+                return res.data
+            }
+        })
+}
+// 头条
+export const list = (data) => {
+    return axios.get(`/list/`, data)
         .then(res => {
             if (res.status === 200) {
                 return res.data

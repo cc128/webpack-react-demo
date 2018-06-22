@@ -11,7 +11,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx'],
+    alias: {
+      'req': path.resolve(__dirname, './src/req')
+    }
   },
+
   devServer: {
     historyApiFallback: true
   },
