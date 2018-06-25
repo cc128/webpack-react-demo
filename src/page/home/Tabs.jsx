@@ -37,11 +37,11 @@ export default class Demo extends React.Component {
             { title: '8th Tab' },
             { title: '9th Tab' },
         ];
-
+        console.log(222,this.props)
         return (
             <div>
                 <WhiteSpace />
-                <Tabs tabs={tabs} renderTabBar={props => <Tabs.DefaultTabBar {...props} page={3} />}>
+                <Tabs tabs={tabs} renderTabBar={props => <Tabs.DefaultTabBar {...props} page={5} />}>
                     {this.renderContent}
                 </Tabs>
                 <WhiteSpace />

@@ -15,9 +15,20 @@ module.exports = {
       'req': path.resolve(__dirname, './src/req')
     }
   },
-
+  devtool: 'cheap-module-source-map',
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    publicPath: '/',
+    proxy: {
+      "/api": {
+        target: 'https://m.toutiao.com',
+        // target: 'http://10.163.126.142:8080/user',
+        changeOrigin: true,
+        pathRewrite: {
+          "^/api": ""
+        }
+      },
+    }
   },
   plugins: [
     // new webpack.ProvidePlugin({

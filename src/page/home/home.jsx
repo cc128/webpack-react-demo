@@ -2,6 +2,7 @@
 import React from 'react';
 import { TabBar } from 'antd-mobile';
 import { get_as_cp } from 'req'
+import Tabs from './Tabs'
 // import { toutiao } from '../../req'
 export default class TabBarExample extends React.Component {
   constructor(props) {
@@ -15,18 +16,33 @@ export default class TabBarExample extends React.Component {
   componentWillMount() {
   }
   renderContent(pageText) {
+    console.log(1)
     return (
-      <div>faefaw</div>
+      <div>{pageText}
+        <Tabs />
+      </div>
     );
   }
 
   render() {
+    const tabs = [
+      { title: '1st Tab' },
+      { title: '2nd Tab' },
+      { title: '3rd Tab' },
+      { title: '4th Tab' },
+      { title: '5th Tab' },
+      { title: '6th Tab' },
+      { title: '7th Tab' },
+      { title: '8th Tab' },
+      { title: '9th Tab' },
+    ]
     return (
       <div style={this.state.fullScreen ? { position: 'fixed', height: '100%', width: '100%', bottom: 0 } : { height: '100%' }}>
         <TabBar
           unselectedTintColor="#949494"
           tintColor="#33A3F4"
           barTintColor="white"
+          prerenderingSiblingsNumber={0}
           hidden={this.state.hidden}
         >
           <TabBar.Item
@@ -35,14 +51,16 @@ export default class TabBarExample extends React.Component {
             icon={<div style={{
               width: '22px',
               height: '22px',
-              background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat'
+              background: 'url(' + require('../../images/journalism.png') + ') center center /  21px 21px no-repeat'
+              // background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat'
             }}
             />
             }
             selectedIcon={<div style={{
               width: '22px',
               height: '22px',
-              background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat'
+              background: 'url(' + require('../../images/journalism1.png') + ') center center /  21px 21px no-repeat'
+              // background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat'
             }}
             />
             }
@@ -55,7 +73,7 @@ export default class TabBarExample extends React.Component {
             }}
             data-seed="logId"
           >
-            {this.renderContent('Life')}
+            {this.renderContent(tabs[0].title)}
           </TabBar.Item>
           <TabBar.Item
             icon={
@@ -85,7 +103,7 @@ export default class TabBarExample extends React.Component {
             }}
             data-seed="logId1"
           >
-            {this.renderContent('Koubei')}
+            {this.renderContent(tabs[1].title)}
           </TabBar.Item>
           <TabBar.Item
             icon={
@@ -114,7 +132,7 @@ export default class TabBarExample extends React.Component {
               });
             }}
           >
-            {this.renderContent('Friend')}
+            {this.renderContent(tabs[2].title)}
           </TabBar.Item>
           <TabBar.Item
             icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
@@ -128,7 +146,7 @@ export default class TabBarExample extends React.Component {
               });
             }}
           >
-            {this.renderContent('My')}
+            {this.renderContent(tabs[3].title)}
           </TabBar.Item>
         </TabBar>
       </div>

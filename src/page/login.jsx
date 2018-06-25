@@ -33,8 +33,9 @@ export default class login extends React.Component {
       .then(res => {
         if (res.code == 0) {
           localStorage.setItem('loginfoData', JSON.stringify(res.data))
-          this.queryPageMethodFunc()
+          // this.queryPageMethodFunc()
           notification.success({ message: '成功', description: '登录成功' })
+          this.props.history.push("/Home");
         }
       })
   }
