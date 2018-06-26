@@ -1,4 +1,6 @@
 import React from 'react';
+import { list } from '../../req'
+
 // export default class Home extends React.Component {
 //   state = { loginfoMenu: JSON.parse(localStorage.getItem('loginfoMenu')) };
 //   render() {
@@ -20,31 +22,33 @@ import React from 'react';
 import { Tabs, WhiteSpace } from 'antd-mobile';
 
 export default class Demo extends React.Component {
-    renderContent = tab =>
-        (<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
-            <p>Content of {tab.title}</p>
-        </div>);
-
+    renderContent = tab => {
+        console.log(tab)
+        // list({
+        //     params: {
+        //         tag: '__all__',
+        //         ac: 'wap',
+        //         count: 20,
+        //         format: 'json_raw',
+        //         as: 'A1350B62CCCBF2B',
+        //         cp: '5B2C9B8F025BAE1',
+        //         min_behot_time: 0,
+        //         _signature: 'TDS0wgAAFxkbA.yZ24fxm0w0tN'
+        //     }
+        // })
+        return (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
+                <p>Content of {tab.title}</p>
+            </div>
+        );
+    }
     render() {
-        const tabs = [
-            { title: '1st Tab' },
-            { title: '2nd Tab' },
-            { title: '3rd Tab' },
-            { title: '4th Tab' },
-            { title: '5th Tab' },
-            { title: '6th Tab' },
-            { title: '7th Tab' },
-            { title: '8th Tab' },
-            { title: '9th Tab' },
-        ];
-        console.log(222,this.props)
         return (
             <div>
-                <WhiteSpace />
-                <Tabs tabs={tabs} renderTabBar={props => <Tabs.DefaultTabBar {...props} page={5} />}>
+                <Tabs tabs={this.props.name} renderTabBar={props => <Tabs.DefaultTabBar {...props} page={6} />} prerenderingSiblingsNumber={0} >
                     {this.renderContent}
                 </Tabs>
-                <WhiteSpace />
+                {/* <WhiteSpace /> */}
             </div>
         );
     }

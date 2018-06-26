@@ -17,13 +17,14 @@ if (location.pathname == '/admin.html') {
 	// );
 	// list({
 	// 	params: {
+	// 		tag: 'news_world',
 	// 		ac: 'wap',
 	// 		count: 20,
 	// 		format: 'json_raw',
-	// 		as: 'A1350B62CCCBF2B',
-	// 		cp: '5B2C9B8F025BAE1',
+	// 		as: 'A145DB3371ACACC',
+	// 		cp: '5B31ACCA1C9CAE1',
 	// 		min_behot_time: 0,
-	// 		_signature: 'TDS0wgAAFxkbA.yZ24fxm0w0tN'
+	// 		_signature: 'pmsoBgAA.WnxXGBdl6VmrqZrKB'
 	// 	}
 	// })
 

@@ -1,41 +1,48 @@
 
 import React from 'react';
 import { TabBar } from 'antd-mobile';
-import { get_as_cp } from 'req'
 import Tabs from './Tabs'
-// import { toutiao } from '../../req'
+import { client_category_list } from 'req'
 export default class TabBarExample extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'redTab',
+      selectedTab: 'toutiao',
       hidden: false,
       fullScreen: true,
+      menu: [
+        { title: '头条', key: 'toutiao', Yicon: require('../../images/journalism1.png'), Nicon: require('../../images/journalism.png') },
+        { title: '口碑', key: 'koubei', Yicon: 'https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg', Nicon: 'https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg' },
+        { title: 'friend', key: 'friend', Yicon: 'https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg', Nicon: 'https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg' },
+        { title: 'my', key: 'my', Yicon: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg', Nicon: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }
+      ],
+      journalism: [
+        { title: '推荐', tag: '__all__' },
+        { title: '视频', tag: 'video' },
+        { title: '热点', tag: 'news_hot' },
+        { title: '社会', tag: 'news_society' },
+        { title: '娱乐', tag: 'news_entertainment' },
+        { title: '军事', tag: 'news_military' },
+        { title: '科技', tag: 'news_tech' },
+        { title: '体育', tag: 'news_sports' },
+      ]
     };
   }
-  componentWillMount() {
+  componentDidMount() {
+    client_category_list({ categoryType: 2, siteHierarchy: 'A' })
+      .then(res => {
+
+      })
   }
-  renderContent(pageText) {
-    console.log(1)
+  renderContent(title, key) {
     return (
-      <div>{pageText}
-        <Tabs />
+      <div>
+        <Tabs name={this.state.journalism} />
       </div>
     );
   }
 
   render() {
-    const tabs = [
-      { title: '1st Tab' },
-      { title: '2nd Tab' },
-      { title: '3rd Tab' },
-      { title: '4th Tab' },
-      { title: '5th Tab' },
-      { title: '6th Tab' },
-      { title: '7th Tab' },
-      { title: '8th Tab' },
-      { title: '9th Tab' },
-    ]
     return (
       <div style={this.state.fullScreen ? { position: 'fixed', height: '100%', width: '100%', bottom: 0 } : { height: '100%' }}>
         <TabBar
@@ -45,109 +52,41 @@ export default class TabBarExample extends React.Component {
           prerenderingSiblingsNumber={0}
           hidden={this.state.hidden}
         >
-          <TabBar.Item
-            title="Life"
-            key="Life"
-            icon={<div style={{
-              width: '22px',
-              height: '22px',
-              background: 'url(' + require('../../images/journalism.png') + ') center center /  21px 21px no-repeat'
-              // background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat'
-            }}
-            />
-            }
-            selectedIcon={<div style={{
-              width: '22px',
-              height: '22px',
-              background: 'url(' + require('../../images/journalism1.png') + ') center center /  21px 21px no-repeat'
-              // background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat'
-            }}
-            />
-            }
-            selected={this.state.selectedTab === 'blueTab'}
-            badge={1}
-            onPress={() => {
-              this.setState({
-                selectedTab: 'blueTab',
-              });
-            }}
-            data-seed="logId"
-          >
-            {this.renderContent(tabs[0].title)}
-          </TabBar.Item>
-          <TabBar.Item
-            icon={
-              <div style={{
-                width: '22px',
-                height: '22px',
-                background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat'
-              }}
-              />
-            }
-            selectedIcon={
-              <div style={{
-                width: '22px',
-                height: '22px',
-                background: 'url(https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg) center center /  21px 21px no-repeat'
-              }}
-              />
-            }
-            title="Koubei"
-            key="Koubei"
-            badge={'new'}
-            selected={this.state.selectedTab === 'redTab'}
-            onPress={() => {
-              this.setState({
-                selectedTab: 'redTab',
-              });
-            }}
-            data-seed="logId1"
-          >
-            {this.renderContent(tabs[1].title)}
-          </TabBar.Item>
-          <TabBar.Item
-            icon={
-              <div style={{
-                width: '22px',
-                height: '22px',
-                background: 'url(https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg) center center /  21px 21px no-repeat'
-              }}
-              />
-            }
-            selectedIcon={
-              <div style={{
-                width: '22px',
-                height: '22px',
-                background: 'url(https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg) center center /  21px 21px no-repeat'
-              }}
-              />
-            }
-            title="Friend"
-            key="Friend"
-            dot
-            selected={this.state.selectedTab === 'greenTab'}
-            onPress={() => {
-              this.setState({
-                selectedTab: 'greenTab',
-              });
-            }}
-          >
-            {this.renderContent(tabs[2].title)}
-          </TabBar.Item>
-          <TabBar.Item
-            icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-            selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
-            title="My"
-            key="my"
-            selected={this.state.selectedTab === 'yellowTab'}
-            onPress={() => {
-              this.setState({
-                selectedTab: 'yellowTab',
-              });
-            }}
-          >
-            {this.renderContent(tabs[3].title)}
-          </TabBar.Item>
+          {this.state.menu.map((D, i) => {
+            return (
+              <TabBar.Item
+                title={D.title}
+                key={D.key}
+                icon={<div style={{
+                  width: '22px',
+                  height: '22px',
+                  background: 'url(' + D.Nicon + ') center center /  21px 21px no-repeat' //未选中icon
+                  // background: 'url(https://zos.alipayobjects.com/rmsportal/sifuoDUQdAFKAVcFGROC.svg) center center /  21px 21px no-repeat'
+                }}
+                />
+                }
+                selectedIcon={<div style={{
+                  width: '22px',
+                  height: '22px',
+                  background: 'url(' + D.Yicon + ') center center /  21px 21px no-repeat' //选中icon
+                  // background: 'url(https://zos.alipayobjects.com/rmsportal/iSrlOTqrKddqbOmlvUfq.svg) center center /  21px 21px no-repeat'
+                }}
+                />
+                }
+                selected={this.state.selectedTab === D.key}//当前选中下标
+                badge={1} //消息数量提示
+                onPress={() => {
+                  alert(123456)
+                  this.setState({
+                    selectedTab: D.key, //修改当前选中下标
+                  });
+                }}
+                data-seed="logId"
+              >
+                {this.renderContent(D.title, i)}  {/* 默认加载页面 */}
+              </TabBar.Item>
+            )
+          })}
         </TabBar>
       </div>
     );

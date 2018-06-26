@@ -44,3 +44,12 @@ export const list = (data) => {
             }
         })
 }
+// 分类
+export const client_category_list = (data) => {
+    return axios.post(`/common/client_category_list`, data)
+        .then(res => {
+            if (res.status === 200) {
+                return res.data
+            }
+        })
+}
