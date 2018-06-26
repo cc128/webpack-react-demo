@@ -12,9 +12,9 @@ export default class TabBarExample extends React.Component {
       fullScreen: true,
       menu: [
         { title: '头条', key: 'toutiao', Yicon: require('../../images/journalism1.png'), Nicon: require('../../images/journalism.png') },
-        { title: '口碑', key: 'koubei', Yicon: 'https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg', Nicon: 'https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg' },
-        { title: 'friend', key: 'friend', Yicon: 'https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg', Nicon: 'https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg' },
-        { title: 'my', key: 'my', Yicon: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg', Nicon: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }
+        // { title: '口碑', key: 'koubei', Yicon: 'https://gw.alipayobjects.com/zos/rmsportal/ekLecvKBnRazVLXbWOnE.svg', Nicon: 'https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg' },
+        // { title: 'friend', key: 'friend', Yicon: 'https://zos.alipayobjects.com/rmsportal/IIRLrXXrFAhXVdhMWgUI.svg', Nicon: 'https://zos.alipayobjects.com/rmsportal/psUFoAMjkCcjqtUCNPxB.svg' },
+        // { title: 'my', key: 'my', Yicon: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg', Nicon: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }
       ],
       journalism: [
         { title: '推荐', tag: '__all__' },
@@ -25,19 +25,34 @@ export default class TabBarExample extends React.Component {
         { title: '军事', tag: 'news_military' },
         { title: '科技', tag: 'news_tech' },
         { title: '体育', tag: 'news_sports' },
-      ]
+      ],
+      menuData:[]
     };
   }
   componentDidMount() {
     client_category_list({ categoryType: 2, siteHierarchy: 'A' })
       .then(res => {
-
+        if(res.code === 0){
+          let Data = []
+          res.data.map((e,i)=>{
+            Data.push({
+              title:e.categoryTitle,
+              id:e.categoryId,
+              type:e.categoryType,
+              parentId:e.parentId,
+              children:e.children,
+            })
+          })
+          this.setState({
+            menuData: Data
+          });
+        }
       })
   }
   renderContent(title, key) {
     return (
       <div>
-        <Tabs name={this.state.journalism} />
+        <Tabs name={this.state.menuData} />
       </div>
     );
   }

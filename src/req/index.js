@@ -53,3 +53,12 @@ export const client_category_list = (data) => {
             }
         })
 }
+// 文章列表
+export const article_list_guest = (data) => {
+    return axios.post(`/article/article_list_guest`, data)
+        .then(res => {
+            if (res.status === 200) {
+                return res.data
+            }
+        })
+}

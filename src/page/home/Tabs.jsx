@@ -1,48 +1,37 @@
 import React from 'react';
-import { list } from '../../req'
+import { article_list_guest } from 'req'
 
-// export default class Home extends React.Component {
-//   state = { loginfoMenu: JSON.parse(localStorage.getItem('loginfoMenu')) };
-//   render() {
-//     let menuStype = {
-//       padding: '0 10px'
-//     }
-//     return (
-//       <div className="nav-top">
-//         {
-//           this.state.loginfoMenu.map((Menu, i) => {
-//             return (
-//               <NavLink to={Menu.pageUrl} activeStyle={{ color: 'green', fontWeight: 'bold' }} className='cursor inlineBlock' style={menuStype} key={i}>{Menu.methodName}</NavLink>
-//             )
-//           })
-//         }
-//       </div>)
-//   }
-// }
 import { Tabs, WhiteSpace } from 'antd-mobile';
 
 export default class Demo extends React.Component {
+    state = {
+        articleList:''
+    };
     renderContent = tab => {
         console.log(tab)
-        // list({
-        //     params: {
-        //         tag: '__all__',
-        //         ac: 'wap',
-        //         count: 20,
-        //         format: 'json_raw',
-        //         as: 'A1350B62CCCBF2B',
-        //         cp: '5B2C9B8F025BAE1',
-        //         min_behot_time: 0,
-        //         _signature: 'TDS0wgAAFxkbA.yZ24fxm0w0tN'
-        //     }
-        // })
+        article_list_guest({
+            pageNum: 1,
+            pageSize: 20,
+            sortField: 'update_time',
+            siteHierarchy: 'A'
+        }).then(res=>{
+            if(res.code === 0){
+                // this.setState({
+                //     articleList: 'res.data.result'
+                // })
+                // this.setState({
+                //     articleList: res.data.result
+                //   });
+            }
+        })
         return (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
-                <p>Content of {tab.title}</p>
+                <p>Content of {tab.categoryTitle}</p>
             </div>
         );
-    }
+    };
     render() {
+        console.log(1234)
         return (
             <div>
                 <Tabs tabs={this.props.name} renderTabBar={props => <Tabs.DefaultTabBar {...props} page={6} />} prerenderingSiblingsNumber={0} >
