@@ -1,7 +1,9 @@
 import css from './app.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './app.jsx';
+import App from './page/login'
+import {Index} from './router'
+
 import Admin from './admin/admin';
 import { querySiteName, get_as_cp, list } from './req'
 
@@ -33,7 +35,7 @@ if (location.pathname == '/admin.html') {
 			if (res.code == 0) {
 				// localStorage.setItem('loginfo', JSON.stringify(res.data))
 				ReactDOM.render(
-					<App />,
+					<Index />,
 					document.getElementById('Index')
 				);
 			} else {

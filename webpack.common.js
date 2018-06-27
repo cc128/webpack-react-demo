@@ -7,7 +7,8 @@ const webpack = require('webpack');
 module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[chunkhash].js'
+    filename: '[name].[chunkhash].js',
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.js', '.jsx'],

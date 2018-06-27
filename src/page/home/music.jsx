@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom'
 export default class Home extends React.Component {
     state = { loginfoMenu: JSON.parse(localStorage.getItem('loginfoMenu')) };
     render() {
@@ -8,7 +7,7 @@ export default class Home extends React.Component {
         }
         return (
             <div className='center'>
-                aaaaaaaaaaaaaa
+                音乐
             </div>
         )
     }

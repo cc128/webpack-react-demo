@@ -1,27 +1,23 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
+// import { Router, Route, Link } from 'react-router'
 import Home from '../page/home/home';
-import a from '../page/home/a';
+import music from '../page/home/music';
 // import Tabs from '../page/home/Tabs';
 import Login from '../page/login';
 export const Index = () => (
     <Router>
         <div>
-            <Route exact path="/" component={Login} />
-            {/* <Route exact path="/Login" component={Login} /> */}
-            <Route path="/Home" component={Home}/>
-            <Route path="/a" component={a} />
-            {/* <Route path="/Tabs" component={Tabs} /> */}
+            {/* <Switch> */}
+                <Route exact path="/" component={Login} />
+                <Route path="/Home" component={Home} />
+                <Route path="/Home/music" component={music} />
+                    <Route path="/a/b" component={music} />
+            {/* </Switch> */}
         </div>
+        {/* <Switch> */}
+        {/* <Route exact path="/Login" component={Login} /> */}
+        {/* <Route path="/Tabs" component={Tabs} /> */}
+        {/* </Switch> */}
     </Router>
 )
-// const unlisten = this.props.history.listen((location, action) => {
-//     // 执行内容, 第一个参数是当前的location, 第二个是此次执行的动作
-//     console.log(action, location.pathname, location.state)
-// })
-
-// // 触发listen, 使用的是push动作
-// history.push('/home', { some: 'state' })
-
-// // 执行函数, 取消监听
-// unlisten()

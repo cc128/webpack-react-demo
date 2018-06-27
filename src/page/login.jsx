@@ -6,6 +6,7 @@ import md5 from 'md5';
 export default class login extends React.Component {
   state = { userName: '17628285312', pws: '', praise: false };
   render() {
+
     return (
       <div style={{ textAlign: 'center' }} className="example-input">
         <br />
