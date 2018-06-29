@@ -1,17 +1,16 @@
 import React from 'react';
 import { article_list_guest, client_category_list } from 'req'
-
 import { Tabs, WhiteSpace } from 'antd-mobile';
-
+import Music from './music';
+import Lists from './Lists';
 export default class Demo extends React.Component {
     state = {
         articleList: [],
         menuData: []
     };
-    article_list_guest = () => {
-        alert(1)
-        return
+    article_list_guest_func = (orgCategoryId) => {
         article_list_guest({
+            orgCategoryId: orgCategoryId,
             pageNum: 1,
             pageSize: 20,
             sortField: 'update_time',
@@ -26,7 +25,6 @@ export default class Demo extends React.Component {
         })
     }
     componentDidMount() {
-        console.log(this.state.articleList)
         client_category_list({ categoryType: 2, siteHierarchy: 'A' })
             .then(res => {
                 if (res.code === 0) {
@@ -43,32 +41,40 @@ export default class Demo extends React.Component {
                     this.setState({
                         menuData: Data
                     });
+                    this.article_list_guest_func(Data[0].id)
                 }
             })
-        // this.article_list_guest()
+
     }
-    renderContent = tab => {
-        console.log(this.state.articleList)
-        return (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
-                <div>
-                    {
-                        this.state.articleList.map((e,i) => {
-                            <div>{i}</div>
-                        })
-                    }
-                </div>
-            </div>
-        );
-    };
     render() {
+        let scrollWidth = document.body.scrollWidth * 2
+        let boxStyle = {
+            display: 'flex',
+            // alignItems: 'center',
+            justifyContent: 'center',
+            // height: scrollWidth - 100,
+            // paddingTop: '60px',
+            paddingBottom: '50px',
+        }
         return (
-            <div>
-                <Tabs onTabClick={this.article_list_guest()} tabs={this.state.menuData} renderTabBar={props => <Tabs.DefaultTabBar {...props} page={6} />} prerenderingSiblingsNumber={0} >
-                    {/* {this.renderContent} */}
-                </Tabs>
-                {/* <WhiteSpace /> */}
-            </div>
+            <Tabs tabs={this.state.menuData}
+                prerenderingSiblingsNumber={0}
+                initialPage={0}
+                tabBarPosition="top"
+                tabBarBackgroundColor="#ffffff"
+                onChange={(tab, index) => {
+                    this.article_list_guest_func(tab.id)
+                    console.log('onChange', index, tab);
+                }}
+                onTabClick={(tab, index) => {
+                    console.log('onTabClick', index, tab);
+                }}
+            >
+                <div style={boxStyle}>
+                    {/* 123 */}
+                    <Lists msg={this.state.articleList} />
+                </div>
+            </Tabs>
         );
     }
 }

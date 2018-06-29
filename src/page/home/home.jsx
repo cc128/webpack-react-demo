@@ -8,7 +8,7 @@ export default class TabBarExample extends React.Component {
   };
   render() {
     return (
-      <div>
+      <div style={{height:'100%'}}>
         <Tabs />
       </div>
     );

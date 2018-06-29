@@ -23,6 +23,7 @@ export default class TabBarExample extends React.Component {
         );
     }
     render() {
+        console.log(1234)
         return (
             <div style={{ position: 'fixed', width: '100%', bottom: 0 }}>
                 <TabBar

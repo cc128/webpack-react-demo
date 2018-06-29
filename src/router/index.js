@@ -8,9 +8,9 @@ import Bottomtabs from '../page/Bottomtabs';
 import Login from '../page/login';
 export const Index = () => (
     <Router>
-        <div>
+        <div style={{height:'100%'}}>
             {/* <Switch> */}
-            <Route exact path="/" component={Login} />
+            {/* <Route exact path="/" component={Login} /> */}
             <Route path="/Home" component={Home} />
             <Route path="/music" component={music} />
             <Route path="/a/b" component={music} />
