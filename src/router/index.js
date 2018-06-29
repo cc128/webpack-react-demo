@@ -12,6 +12,7 @@ export const Index = () => (
             {/* <Switch> */}
             {/* <Route exact path="/" component={Login} /> */}
             <Route path="/Home" component={Home} />
+            {/* <Route path="/Home" component={Tabs} /> */}
             <Route path="/music" component={music} />
             <Route path="/a/b" component={music} />
             {/* </Switch> */}
