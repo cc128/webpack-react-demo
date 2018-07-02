@@ -1,6 +1,8 @@
 //引入axios
 import axios from 'axios';
 import { notification } from 'antd';
+import { Toast } from 'antd-mobile';
+
 // 请求的默认地址
 // axios.defaults.baseURL = "http://10.163.126.142:8080/user";
 
@@ -46,16 +48,23 @@ axios.interceptors.response.use(function (res) {
     }
     if (res.data.code === 0) {
         if (res.data.msg !== '成功') {
-            notification.success({ message: '成功', description: res.data.msg })
+            Toast.offline('网络错误', 1);
+            // notification.success({ message: '成功', description: res.data.msg })
         }
     } else if (res.data.code == 502) {
         notification.warning({ message: '警告', description: res.data.msg })
         this.props.history.push("/")
+    } else if (res.data.code == 504) {
+        Toast.offline('网络错误', 1);
     } else {
         notification.warning({ message: '警告', description: res.data.msg })
     }
     return res;
 }, function (err) {
+    alert(3)
+    // notification.warning({ message: '警告', description: '网络错误' })
+    Toast.hide()
+    Toast.offline('请求超时', 1);
     return Promise.reject(err);
 })
 export default axios

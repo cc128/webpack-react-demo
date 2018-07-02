@@ -8,15 +8,17 @@ import Bottomtabs from '../page/Bottomtabs';
 import Login from '../page/login';
 export const Index = () => (
     <Router>
-        <div style={{height:'100%'}}>
+        <div style={{ height: '100%' }}>
             {/* <Switch> */}
-            {/* <Route exact path="/" component={Login} /> */}
+            <Route exact path="/" component={Login} />
             <Route path="/Home" component={Home} />
             {/* <Route path="/Home" component={Tabs} /> */}
             <Route path="/music" component={music} />
             <Route path="/a/b" component={music} />
             {/* </Switch> */}
-            <Route path="/" component={Bottomtabs} />
+            <Route path="/Home" component={Bottomtabs} />
+            <Route path="/music" component={Bottomtabs} />
+            <Route path="/a/b" component={Bottomtabs} />
         </div>
     </Router>
 )
