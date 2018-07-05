@@ -9,12 +9,14 @@ import { Toast } from 'antd-mobile';
 // axios.defaults.baseURL = "http://192.168.1.16:8080/user"; //田
 // axios.defaults.baseURL = "http://192.168.1.15:8080/user"; //王
 // axios.defaults.baseURL = "http://192.168.1.17:8080/user"; //曾
-axios.defaults.baseURL = "http://localhost:3002";
+// axios.defaults.baseURL = "http://localhost:3002";
+axios.defaults.baseURL = "http://192.168.10.12";
+
 // axios.defaults.baseURL = "https://m.toutiao.com";
 // axios.defaults.baseURL = "/api";
 
 // 请求超时时间限制
-axios.defaults.timeout = 5000;
+// axios.defaults.timeout = 5000;
 import qs from 'qs'
 //POST传参序列化(添加请求拦截器)
 let DATA = ''
@@ -61,7 +63,6 @@ axios.interceptors.response.use(function (res) {
     }
     return res;
 }, function (err) {
-    alert(3)
     // notification.warning({ message: '警告', description: '网络错误' })
     Toast.hide()
     Toast.offline('请求超时', 1);
