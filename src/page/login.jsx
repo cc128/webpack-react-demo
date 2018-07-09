@@ -1,7 +1,6 @@
 import React from "react";
 import { IsPC } from "../tool/tool.js";
 import { user_login, query_page_method } from "../req";
-// import { Button, Input, notification } from "antd";
 import { Button, InputItem, WingBlank } from "antd-mobile";
 import md5 from "md5";
 export default class login extends React.Component {
@@ -51,10 +50,12 @@ export default class login extends React.Component {
     this.setState({ userName: e });
   };
   passwordChange = e => {
-    this.setState({ pws: md5(e.target.value).toUpperCase() });
+    console.log(e);
+    this.setState({ pws: md5(e).toUpperCase() });
   };
   // 登录
   loginFunc = () => {
+    alert(3)
     this.setState({
       loading: true
     });
@@ -66,9 +67,9 @@ export default class login extends React.Component {
     })
       .then(res => {
         if (res.code == 0) {
+          alert(2)
           localStorage.setItem("loginfoData", JSON.stringify(res.data));
           // this.queryPageMethodFunc()
-          notification.success({ message: "成功", description: "登录成功" });
           this.props.history.push("/Home");
         }
         this.setState({
