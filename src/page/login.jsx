@@ -11,7 +11,7 @@ export default class login extends React.Component {
         <br />
         <InputItem
           placeholder="请输入账号"
-          type="phone"
+          type="number"
           clear
           value={this.state.userName}
           onChange={this.userNameChange}
@@ -55,7 +55,6 @@ export default class login extends React.Component {
   };
   // 登录
   loginFunc = () => {
-    alert(3)
     this.setState({
       loading: true
     });
@@ -67,7 +66,6 @@ export default class login extends React.Component {
     })
       .then(res => {
         if (res.code == 0) {
-          alert(2)
           localStorage.setItem("loginfoData", JSON.stringify(res.data));
           // this.queryPageMethodFunc()
           this.props.history.push("/Home");

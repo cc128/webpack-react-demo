@@ -1,20 +1,67 @@
 import React from "react";
 import { Button, InputItem, WingBlank, TextareaItem } from "antd-mobile";
-import io from 'socket.io-client';
- 
-const socket = io('http://192.168.10.12:1337');
+const io = require("socket.io-client");
+// const socket = io("http://192.168.10.12:1337");
+// const socket = io.connect("http://192.168.10.12:1337");
+let loginfoData = JSON.parse(localStorage.getItem("loginfoData"));
 export default class Home extends React.Component {
-    state = { text: "" };
-    render() {
+  state = {
+    text: "", //发送内容
+    cont: [], //聊天内容
+    userNumber: 0, //在线人数
+    socket: io.connect("http://192.168.10.12:1337")
+  };
+  componentWillUnmount() {
+    // this.state.socket.emit("updatePerson", loginfoData.userId);
+  }
+  componentDidMount() {
+    // 表示在线人数加一
+    // this.state.socket.emit("setUserNumber", loginfoData.userId);
+    // 监听聊天消息
+    this.state.socket.on("chatInfo", msg => {
+      let arr = [];
+      if (msg.is == "ok") {
+        arr = [];
+      } else {
+        arr = this.state.cont;
+        arr.push(msg.data);
+        console.log(arr);
+        if (arr.length === 10) {
+          arr.shift();
+        }
+        this.setState({
+          cont: arr
+        });
+      }
+    });
+    // 监听在线人数
+    this.state.socket.on("updatePerson", num => {
+      this.setState({
+        userNumber: num.userNumber
+      });
+    });
+  }
+  render() {
     let menuStype = {
       padding: "0 10px"
     };
     return (
-      <div className="center">
+      <div>
+        <div>
+          <div className="center">
+            <br />
+            在线人数{this.state.userNumber}
+            <br />
+          </div>
+          {this.state.cont.map((e, i) => {
+            return <div key={i}>{e}</div>;
+          })}
+        </div>
         <br />
         <TextareaItem
+          value={this.state.text}
           title=""
-          placeholder="auto focus in Alipay client"
+          placeholder="请输入内容"
           data-seed="logId"
           ref={el => (this.autoFocusInst = el)}
           autoHeight
@@ -32,13 +79,13 @@ export default class Home extends React.Component {
     );
   }
   text1 = e => {
-    console.log(e);
     this.setState({
       text: e
     });
   };
+  // 发送消息
   send = e => {
-    // socket.emit('chat message', 'aaaaaaaaaaaa');
-    console.log(this.state.text);
+    this.state.socket.emit("sendInfo", this.state.text);
+    this.text1("");
   };
 }
