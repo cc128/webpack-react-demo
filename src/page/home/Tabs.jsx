@@ -82,7 +82,7 @@ export default class Demo extends React.Component {
                 }}
             >
                 <div style={boxStyle}>
-                    <Lists style={{ width: '100%' }} msg={this.state.articleList} />
+                    {/* <Lists style={{ width: '100%' }} msg={this.state.articleList} /> */}
                     {/* <Lists style={{ width: '100%' }} name="aaaa" msg={this.state.articleList} /> */}
                 </div>
             </Tabs>

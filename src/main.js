@@ -1,57 +1,27 @@
 import css from "./app.scss";
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./page/login";
 import { Index } from "./router";
-
 import Admin from "./admin/admin";
-import { querySiteName, get_as_cp, list } from "./req";
-
+import { querySiteName } from "./req";
+import io from "socket.io-client";
+import { createStore } from "redux";
+import Reducers from "./redux/Reducers";
+const store = createStore(Reducers);
 if (location.pathname == "/admin.html") {
   ReactDOM.render(<Admin />, document.getElementById("Admin"));
 } else {
-  //   ReactDOM.render(<App />, document.getElementById("Index"));
-  // list({
-  // 	params: {
-  // 		tag: 'news_world',
-  // 		ac: 'wap',
-  // 		count: 20,
-  // 		format: 'json_raw',
-  // 		as: 'A145DB3371ACACC',
-  // 		cp: '5B31ACCA1C9CAE1',
-  // 		min_behot_time: 0,
-  // 		_signature: 'pmsoBgAA.WnxXGBdl6VmrqZrKB'
-  // 	}
-  // })
-
   querySiteName({ doMain: "" }).then(res => {
     if (res.code == 0) {
+      window.$socket = io.connect("http://192.168.10.12:1337");
+      window.$store = store;
       // localStorage.setItem('loginfo', JSON.stringify(res.data))
       ReactDOM.render(<Index />, document.getElementById("Index"));
     } else {
       // localStorage.setItem('loginfo', JSON.stringify(res.data))
       // ReactDOM.render(
-      // 	<App />,
       // 	document.getElementById('Index')
       // );
     }
   });
 }
-// let a = "highaoewhihaehagbggggggggggggggggggggggg";
-// let b = "highaoewhihaehagbggggggggggggggggggggggg";
-// function aaa() {
-//   b = b.replace("h1", 0);
-//   console.log(1, b);
-//   bbb(b);
-// }
-// function bbb(c) {
-//   console.log(2, c);
-//   for (let i = 0; i < c.length; i++) {
-//     if (c[i] == "h") {
-//       aaa();
-//       return;
-//     }
-//   }
-// }
-// bbb(a);
-// console.log(b);

@@ -9,7 +9,7 @@ export default class TabBarExample extends React.Component {
   render() {
     return (
       <div style={{height:'100%'}}>
-        <Tabs />
+        {/* <Tabs /> */}
       </div>
     );
   }

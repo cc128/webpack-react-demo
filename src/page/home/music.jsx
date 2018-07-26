@@ -1,6 +1,12 @@
 import React from "react";
 import { Button, InputItem, WingBlank, TextareaItem } from "antd-mobile";
-const io = require("socket.io-client");
+import {
+  userNumber,
+  toggleTodo,
+  setVisibilityFilter,
+  VisibilityFilters
+} from "../../redux/Action";
+// const io = require("socket.io-client");
 // const socket = io("http://192.168.10.12:1337");
 // const socket = io.connect("http://192.168.10.12:1337");
 let loginfoData = JSON.parse(localStorage.getItem("loginfoData"));
@@ -8,15 +14,11 @@ export default class Home extends React.Component {
   state = {
     text: "", //发送内容
     cont: [], //聊天内容
-    userNumber: 0, //在线人数
-    socket: io.connect("http://192.168.10.12:1337")
+    socket: $socket
   };
-  componentWillUnmount() {
-    // this.state.socket.emit("updatePerson", loginfoData.userId);
-  }
+  componentWillUnmount() {}
   componentDidMount() {
-    // 表示在线人数加一
-    // this.state.socket.emit("setUserNumber", loginfoData.userId);
+    console.log(222, $store.getState().todos);
     // 监听聊天消息
     this.state.socket.on("chatInfo", msg => {
       let arr = [];
@@ -25,7 +27,6 @@ export default class Home extends React.Component {
       } else {
         arr = this.state.cont;
         arr.push(msg.data);
-        console.log(arr);
         if (arr.length === 10) {
           arr.shift();
         }
@@ -36,9 +37,8 @@ export default class Home extends React.Component {
     });
     // 监听在线人数
     this.state.socket.on("updatePerson", num => {
-      this.setState({
-        userNumber: num.userNumber
-      });
+      $store.dispatch(userNumber(num.userNumber));
+      console.log(333, $store.getState().todos);
     });
   }
   render() {
@@ -50,7 +50,7 @@ export default class Home extends React.Component {
         <div>
           <div className="center">
             <br />
-            在线人数{this.state.userNumber}
+            在线人数{$store.getState().todos.num}
             <br />
           </div>
           {this.state.cont.map((e, i) => {
