@@ -13,8 +13,7 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx"],
     alias: {
-      req: path.resolve(__dirname, "./src/req"),
-      redux: path.resolve(__dirname, "./src/redux")
+      req: path.resolve(__dirname, "./src/req")
     }
   },
   devtool: "cheap-module-source-map",

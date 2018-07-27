@@ -2,6 +2,69 @@
 @import '~antd-mobile/dist/antd-mobile.css';
 
 @import './page/login.scss';
+@import './page/Home.scss';
+body,
+div,
+span,
+header,
+footer,
+nav,
+section,
+aside,
+article,
+ul,
+dl,
+dt,
+dd,
+li,
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+i,
+b,
+textarea,
+button,
+input,
+select,
+figure,
+figcaption {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-style: normal;
+  text-decoration: none;
+  border: none; // color: #333;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", STHeiti, "Microsoft Yahei", Tahoma, Simsun, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  &:focus {
+    outline: none;
+  }
+}
+div,img
+{
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden; /* Chrome and Safari */
+  -moz-backface-visibility:hidden; /* Firefox */
+  -ms-backface-visibility:hidden; /* Internet Explorer */
+}
+textarea,
+button,
+input {
+  -webkit-appearance: none;
+  resize: none;
+  outline: none
+}
+/***去除input默认背景色****/
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+}
 html,
 body {
     height: 100%;
@@ -11,11 +74,6 @@ body {
 
 img {
     border: 0 solid;
-}
-
-* {
-    padding: 0;
-    margin: 0;
 }
 
 // 登录
@@ -43,6 +101,9 @@ img {
 }
 .inlineBlock{
 	display:inline-block;
+}
+.clear{
+  clear:both;
 }
 .sticky-list .sticky-container .am-list-item { padding-left: 0; }
 .sticky-list .sticky-container .am-list-line { padding-right: 0; }

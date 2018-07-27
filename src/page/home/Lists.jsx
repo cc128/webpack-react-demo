@@ -22,8 +22,6 @@ import ReactDOM from 'react-dom';
 //                 }
 //             </div>
 //         )
-//         console.log(this.props.msg)
-
 //     }
 // }
 import { PullToRefresh, Button } from 'antd-mobile';

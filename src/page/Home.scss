@@ -1,0 +1,38 @@
+.nav {
+  background: #fff;
+  .logo {
+    height: 50px;
+    margin: 5px;
+  }
+  .nav-ul {
+    width: 1200px;
+    height: 60px;
+    margin: auto;
+    li {
+      line-height: 60px;
+      padding: 0 20px;
+      &:hover {
+        color: aquamarine;
+        cursor: pointer;
+      }
+    }
+  }
+}
+.content {
+  width: 1200px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  .sentInfo{
+    border: 1px solid red;
+    min-height: 300px;
+    max-height: 500px;
+    overflow-y: auto;
+    .photo{
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #ccc;
+    }
+  }
+}

@@ -46,11 +46,9 @@ export default class login extends React.Component {
     // console.log(this.fileInput.files)
   };
   userNameChange = e => {
-    console.log(e);
     this.setState({ userName: e });
   };
   passwordChange = e => {
-    console.log(e);
     this.setState({ pws: md5(e).toUpperCase() });
   };
   // 登录

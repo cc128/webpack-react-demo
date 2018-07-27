@@ -18,7 +18,6 @@ export default class Home extends React.Component {
   };
   componentWillUnmount() {}
   componentDidMount() {
-    console.log(222, $store.getState().todos);
     // 监听聊天消息
     this.state.socket.on("chatInfo", msg => {
       let arr = [];
@@ -38,7 +37,6 @@ export default class Home extends React.Component {
     // 监听在线人数
     this.state.socket.on("updatePerson", num => {
       $store.dispatch(userNumber(num.userNumber));
-      console.log(333, $store.getState().todos);
     });
   }
   render() {
