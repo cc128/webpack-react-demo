@@ -9,7 +9,8 @@ export default class Content extends React.Component {
     userNumber: ""
   };
   sentInfo = e => {
-      console.log(document.getElementsByClassName("sentInfo").scrollHeight)
+    console.log(this.state.text);
+    if (!this.state.text) return;
     this.state.socket.emit("sendInfo", this.state.text);
     this.setState({ text: "" });
   };
@@ -18,17 +19,18 @@ export default class Content extends React.Component {
     this.state.socket.on("chatInfo", msg => {
       let arr = [];
       if (msg.is == "ok") {
-        arr = [];
+        console.log();
+        arr = msg.data;
       } else {
         arr = this.state.cont;
         arr.push(msg.data);
         if (arr.length === 100) {
           arr.shift();
         }
-        this.setState({
-          cont: arr
-        });
       }
+      this.setState({
+        cont: arr
+      });
     });
     // 监听在线人数
     this.state.socket.on("updatePerson", num => {
@@ -38,14 +40,19 @@ export default class Content extends React.Component {
   render() {
     return (
       <div className="content">
-        <div className="sentInfo">
+        <div className="infoBox">
           <div>
             <div className="center">
               在线人数{this.state.userNumber}
               <br />
             </div>
             {this.state.cont.map((e, i) => {
-              return <div key={i}>{e}</div>;
+              return (
+                <div key={i} className="infoStype">
+                  <div className="photo"></div>
+                  <div>{e}</div>
+                </div>
+              );
             })}
           </div>
         </div>
@@ -55,6 +62,7 @@ export default class Content extends React.Component {
           value={this.state.text}
           autosize={{ minRows: 2, maxRows: 6 }}
           onChange={e => {
+            // if (e.target.value.length > 50) return;
             this.setState({ text: e.target.value });
           }}
         />
