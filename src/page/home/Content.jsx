@@ -6,14 +6,19 @@ export default class Content extends React.Component {
     text: "", //发送内容
     cont: [], //聊天内容
     socket: $socket,
-    userNumber: ""
+    userNumber: "",
+    editor: ""
   };
   sentInfo = e => {
-    console.log(this.state.text);
-    if (!this.state.text) return;
-    this.state.socket.emit("sendInfo", this.state.text);
-    this.setState({ text: "" });
+    console.log(typeof this.state.editor.txt.html());
+    // if (!this.state.text) return;
+    this.state.socket.emit("sendInfo", this.state.editor.txt.html());
+    this.state.editor.txt.html('')
+    // this.setState({ text: "" });
   };
+  componentDidMount() {
+    //模块加载前
+  }
   componentDidMount() {
     // 监听聊天消息
     this.state.socket.on("chatInfo", msg => {
@@ -36,6 +41,17 @@ export default class Content extends React.Component {
     this.state.socket.on("updatePerson", num => {
       this.setState({ userNumber: num.userNumber });
     });
+    let E = window.wangEditor;
+    let editor = new E("#editor");
+    this.setState(
+      {
+        editor: editor
+      },
+      function() {
+        editor.customConfig.uploadImgShowBase64 = true;
+        this.state.editor.create();
+      }
+    );
   }
   render() {
     return (
@@ -49,15 +65,20 @@ export default class Content extends React.Component {
             {this.state.cont.map((e, i) => {
               return (
                 <div key={i} className="infoStype">
-                  <div className="photo"></div>
-                  <div>{e}</div>
+                  <div className="photo fl" />
+                  <div
+                    className="text fl"
+                    dangerouslySetInnerHTML={{ __html: e }}
+                  />
+                  <div className="clear"></div>
                 </div>
               );
             })}
           </div>
         </div>
         <br />
-        <TextArea
+        <div id="editor" />
+        {/* <TextArea
           placeholder="Please enter the content"
           value={this.state.text}
           autosize={{ minRows: 2, maxRows: 6 }}
@@ -65,7 +86,7 @@ export default class Content extends React.Component {
             // if (e.target.value.length > 50) return;
             this.setState({ text: e.target.value });
           }}
-        />
+        /> */}
         <div style={{ margin: "24px 0" }} />
         <Button type="primary" onClick={this.sentInfo}>
           发送

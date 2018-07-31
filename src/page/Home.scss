@@ -30,13 +30,26 @@
     background: #ccc;
     padding: 5px;
     .infoStype {
-      border: 1px solid red;
+      padding: 5px 0;
       .photo {
-        width: 30px;
-        height: 30px;
+        width: 27px;
+        height: 27px;
         border-radius: 50%;
-        background: #ccc;
+        background: #40D2FF;
+      }
+      .text {
+        margin-left: 20px;
+        background: #fff;
+        border-radius: 5px;
+        padding: 3px 5px;
+        max-width: 90%;
+        img{
+          // width: 300px;
+        }
       }
     }
+  }
+  #editor{
+    // max-height: 100px;
   }
 }
