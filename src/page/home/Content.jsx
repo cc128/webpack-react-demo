@@ -16,6 +16,9 @@ export default class Content extends React.Component {
     this.state.editor.txt.html('')
     // this.setState({ text: "" });
   };
+  aa = e => {
+    alert(1)
+  }
   componentDidMount() {
     //模块加载前
   }
@@ -43,6 +46,9 @@ export default class Content extends React.Component {
     });
     let E = window.wangEditor;
     let editor = new E("#editor");
+    setTimeout(()=>{
+      document.getElementsByClassName('w-e-text-container')[0].style.height = 'auto'
+    })
     this.setState(
       {
         editor: editor
@@ -63,6 +69,9 @@ export default class Content extends React.Component {
               <br />
             </div>
             {this.state.cont.map((e, i) => {
+              {
+                e.includes("src=\"https") ? ( e = e.replace(/src=\"https/," onClick=(aa) "+" src=\"https")) : ( e.includes("src=\"https") ? "" : e )
+              }
               return (
                 <div key={i} className="infoStype">
                   <div className="photo fl" />
@@ -70,6 +79,8 @@ export default class Content extends React.Component {
                     className="text fl"
                     dangerouslySetInnerHTML={{ __html: e }}
                   />
+                  <p>{ e.includes("src=\"https") ? e : "bbbbbbbbbb"}</p>
+                  {/* <p>{e}</p> */}
                   <div className="clear"></div>
                 </div>
               );
@@ -78,15 +89,6 @@ export default class Content extends React.Component {
         </div>
         <br />
         <div id="editor" />
-        {/* <TextArea
-          placeholder="Please enter the content"
-          value={this.state.text}
-          autosize={{ minRows: 2, maxRows: 6 }}
-          onChange={e => {
-            // if (e.target.value.length > 50) return;
-            this.setState({ text: e.target.value });
-          }}
-        /> */}
         <div style={{ margin: "24px 0" }} />
         <Button type="primary" onClick={this.sentInfo}>
           发送
