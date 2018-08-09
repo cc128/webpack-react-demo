@@ -19,10 +19,11 @@
   }
 }
 .content {
-  width: 1200px;
+  width: 100%;
   margin: auto;
   background: #fff;
-  padding: 20px;
+  // padding: 20px;
+  overflow: hidden;
   .infoBox {
     min-height: 300px;
     max-height: 500px;
@@ -35,22 +36,45 @@
         width: 27px;
         height: 27px;
         border-radius: 50%;
-        background: #40D2FF;
+        background: #40d2ff;
       }
       .text {
         margin-left: 20px;
         background: #fff;
         border-radius: 5px;
         padding: 3px 5px;
-        max-width: 90%;
-        img{
+        max-width: 95%;
+        word-wrap: break-word;
+        img {
           max-width: 200px !important;
-          // width: 300px;
         }
       }
     }
   }
-  #editor{
+  #editor {
     // max-height: 100px;
   }
+}
+#menu {
+  width: 0; /*设置为0 隐藏自定义菜单*/
+  min-height: 25px;
+  overflow: hidden; /*隐藏溢出的元素*/
+  box-shadow: 0 1px 1px #888, 1px 0 1px #ccc;
+  position: absolute; /*自定义菜单相对与body元素进行定位*/
+}
+.menu {
+  width: 150px;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 10px;
+  background: #fff;
+  cursor: pointer;
+}
+.icon{
+  position: fixed;
+  bottom: 200px;
+  right: 300px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
 }

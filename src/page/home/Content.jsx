@@ -1,24 +1,48 @@
 import React from "react";
-import { Button, Input } from "antd";
-const { TextArea } = Input;
+import { Button, Input, Modal } from "antd";
+import Align from "rmc-align";
 export default class Content extends React.Component {
   state = {
-    text: "", //发送内容
+    text: "123", //发送内容
     cont: [], //聊天内容
     socket: $socket,
     userNumber: "",
-    editor: ""
+    editor: "",
+    visible: false
   };
-  sentInfo = e => {
-    console.log(typeof this.state.editor.txt.html());
-    // if (!this.state.text) return;
+  // 右键点击图片
+  showRightMrnu = (e, data) => {
+    return;
+    e.preventDefault(); //阻止默认右键
+    var menu = document.querySelector("#menu");
+    menu.style.left = e.clientX + "px";
+    menu.style.top = e.clientY + "px";
+    menu.style.width = "150px";
+  };
+  // 点击右键菜单
+  clickRightMrnu = () => {
+    document.querySelector("#menu").style.width = "0px";
+  };
+  // 发送消息
+  sentInfo = () => {
+    if (this.state.editor.txt.html() === "<p><br></p>") return;
     this.state.socket.emit("sendInfo", this.state.editor.txt.html());
-    this.state.editor.txt.html('')
-    // this.setState({ text: "" });
+    this.state.editor.txt.html("");
   };
-  aa = e => {
-    alert(1)
-  }
+  // 点击图片
+  getImg = e => {
+    if (e.includes('src="https') || e.includes('src="data')) {
+      this.setState({
+        visible: true,
+        text: e.match(/<img[^>]+>/g)[0]
+      });
+    }
+  };
+  handleCancel = () => {
+    this.setState({
+      visible: false
+    });
+  };
   componentDidMount() {
     //模块加载前
   }
@@ -46,9 +70,35 @@ export default class Content extends React.Component {
     });
     let E = window.wangEditor;
     let editor = new E("#editor");
-    setTimeout(()=>{
-      document.getElementsByClassName('w-e-text-container')[0].style.height = 'auto'
-    })
+    editor.customConfig.zIndex = 1
+    // 隐藏“网络图片”tab
+    editor.customConfig.showLinkImg = false
+    editor.customConfig.menus = [
+      // "head", // 标题
+      // "bold", // 粗体
+      // "fontSize", // 字号
+      // "fontName", // 字体
+      // "italic", // 斜体
+      // "underline", // 下划线
+      // "strikeThrough", // 删除线
+      // "foreColor", // 文字颜色
+      // "backColor", // 背景颜色
+      // "link", // 插入链接
+      // "list", // 列表
+      // "justify", // 对齐方式
+      // "quote", // 引用
+      "emoticon", // 表情
+      "image", // 插入图片
+      // "table", // 表格
+      // "video", // 插入视频
+      // "code", // 插入代码
+      "undo", // 撤销
+      "redo" // 重复
+    ];
+    setTimeout(() => {
+      document.getElementsByClassName("w-e-text-container")[0].style.height =
+        "auto";
+    });
     this.setState(
       {
         editor: editor
@@ -65,23 +115,23 @@ export default class Content extends React.Component {
         <div className="infoBox">
           <div>
             <div className="center">
-              在线人数{this.state.userNumber}
+              在线人数
+              {this.state.userNumber}
               <br />
             </div>
-            {this.state.cont.map((e, i) => {
-              {
-                e.includes("src=\"https") ? ( e = e.replace(/src=\"https/," onClick=(aa) "+" src=\"https")) : ( e.includes("src=\"https") ? "" : e )
-              }
+            {this.state.cont.map((data, i) => {
               return (
                 <div key={i} className="infoStype">
                   <div className="photo fl" />
                   <div
                     className="text fl"
-                    dangerouslySetInnerHTML={{ __html: e }}
+                    dangerouslySetInnerHTML={{ __html: data }}
+                    onClick={() => this.getImg(data)}
+                    onContextMenu={(e, data) => {
+                      this.showRightMrnu(e, data);
+                    }}
                   />
-                  <p>{ e.includes("src=\"https") ? e : "bbbbbbbbbb"}</p>
-                  {/* <p>{e}</p> */}
-                  <div className="clear"></div>
+                  <div className="clear" />
                 </div>
               );
             })}
@@ -93,6 +143,22 @@ export default class Content extends React.Component {
         <Button type="primary" onClick={this.sentInfo}>
           发送
         </Button>
+        <br />
+        <br />
+        <div id="menu" onClick={this.clickRightMrnu}>
+          <div className="menu">撤回消息</div>
+        </div>
+        <Modal
+          title=""
+          bodyStyle={{ textAlign: "center", padding: 0 }}
+          footer={null}
+          centered={true}
+          width="700px"
+          visible={this.state.visible}
+          onCancel={this.handleCancel}
+        >
+          <p dangerouslySetInnerHTML={{ __html: this.state.text }} />
+        </Modal>
       </div>
     );
   }
