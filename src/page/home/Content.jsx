@@ -1,164 +1,63 @@
 import React from "react";
-import { Button, Input, Modal } from "antd";
-import Align from "rmc-align";
+import { get_entry_by_rank } from "../../req";
+import { getTimeSpan } from "../../tool/tool.js";
+
 export default class Content extends React.Component {
   state = {
-    text: "123", //发送内容
-    cont: [], //聊天内容
-    socket: $socket,
-    userNumber: "",
-    editor: "",
-    visible: false
+    cont: []
   };
-  // 右键点击图片
-  showRightMrnu = (e, data) => {
-    return;
-    e.preventDefault(); //阻止默认右键
-    var menu = document.querySelector("#menu");
-    menu.style.left = e.clientX + "px";
-    menu.style.top = e.clientY + "px";
-    menu.style.width = "150px";
-  };
-  // 点击右键菜单
-  clickRightMrnu = () => {
-    document.querySelector("#menu").style.width = "0px";
-  };
-  // 发送消息
-  sentInfo = () => {
-    if (this.state.editor.txt.html() === "<p><br></p>") return;
-    this.state.socket.emit("sendInfo", this.state.editor.txt.html());
-    this.state.editor.txt.html("");
-  };
-  // 点击图片
-  getImg = e => {
-    if (e.includes('src="https') || e.includes('src="data')) {
-      this.setState({
-        visible: true,
-        text: e.match(/<img[^>]+>/g)[0]
-      });
-    }
-  };
-  handleCancel = () => {
-    this.setState({
-      visible: false
-    });
-  };
+
   componentDidMount() {
     //模块加载前
   }
   componentDidMount() {
-    // 监听聊天消息
-    this.state.socket.on("chatInfo", msg => {
-      let arr = [];
-      if (msg.is == "ok") {
-        console.log();
-        arr = msg.data;
-      } else {
-        arr = this.state.cont;
-        arr.push(msg.data);
-        if (arr.length === 100) {
-          arr.shift();
-        }
+    // https://timeline-merger-ms.juejin.im/v1/get_entry_by_rank?src=web&limit=20&category=
+    get_entry_by_rank({
+      params: {
+        src: "web",
+        limit: "20",
+        category: "5562b415e4b00c57d9b94ac8"
       }
-      this.setState({
-        cont: arr
-      });
-    });
-    // 监听在线人数
-    this.state.socket.on("updatePerson", num => {
-      this.setState({ userNumber: num.userNumber });
-    });
-    let E = window.wangEditor;
-    let editor = new E("#editor");
-    editor.customConfig.zIndex = 1
-    // 隐藏“网络图片”tab
-    editor.customConfig.showLinkImg = false
-    editor.customConfig.menus = [
-      // "head", // 标题
-      // "bold", // 粗体
-      // "fontSize", // 字号
-      // "fontName", // 字体
-      // "italic", // 斜体
-      // "underline", // 下划线
-      // "strikeThrough", // 删除线
-      // "foreColor", // 文字颜色
-      // "backColor", // 背景颜色
-      // "link", // 插入链接
-      // "list", // 列表
-      // "justify", // 对齐方式
-      // "quote", // 引用
-      "emoticon", // 表情
-      "image", // 插入图片
-      // "table", // 表格
-      // "video", // 插入视频
-      // "code", // 插入代码
-      "undo", // 撤销
-      "redo" // 重复
-    ];
-    setTimeout(() => {
-      document.getElementsByClassName("w-e-text-container")[0].style.height =
-        "auto";
-    });
-    this.setState(
-      {
-        editor: editor
-      },
-      function() {
-        editor.customConfig.uploadImgShowBase64 = true;
-        this.state.editor.create();
+    }).then(res => {
+      if (res.m === "ok") {
+        this.setState({
+          cont: [...res.d.entrylist]
+        });
       }
-    );
+    });
   }
   render() {
     return (
       <div className="content">
-        <div className="infoBox">
-          <div>
-            <div className="center">
-              在线人数
-              {this.state.userNumber}
-              <br />
+        {this.state.cont.map(D => {
+          return (
+            <div className="article_list" key={D.objectId}>
+              <div className="meta_list">
+                <span style={{ color: "red" }}>
+                  {D.collectionCount >= 100 ? "热 · " : ""}
+                </span>
+                <span style={{ color: "#b71ed7" }}>专栏 · </span>
+                <span style={{ color: "#c8c8c8" }}>{D.user.username} · </span>
+                <span style={{ color: "#c8c8c8" }}>
+                  {getTimeSpan(
+                    Math.round(new Date(D.createdAt).getTime()),
+                    true
+                  )}
+                </span>
+                <span style={{ color: "#c8c8c8" }}>
+                  {D.tags[0].title} {D.tags[1] ? " / " + D.tags[1].title : ""}
+                </span>
+              </div>
+              <div className="info_title">{D.title}</div>
+              <div className="info_number">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PHRpdGxlPkNBQ0Y5MUY0LTc2RUItNDFENS1CRjZELTdCNTBGNUY4NjUwNTwvdGl0bGU+PGRlZnM+PHJlY3QgaWQ9ImEiIHk9IjU0IiB3aWR0aD0iNjAiIGhlaWdodD0iMjUiIHJ4PSIxIi8+PG1hc2sgaWQ9ImIiIHg9IjAiIHk9IjAiIHdpZHRoPSI2MCIgaGVpZ2h0PSIyNSIgZmlsbD0iI2ZmZiI+PHVzZSB4bGluazpocmVmPSIjYSIvPjwvbWFzaz48L2RlZnM+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTkgLTU2KSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48dXNlIHN0cm9rZT0iI0VERUVFRiIgbWFzaz0idXJsKCNiKSIgc3Ryb2tlLXdpZHRoPSIyIiB4bGluazpocmVmPSIjYSIvPjxwYXRoIGQ9Ik0xOS4wNSA2Mi43OTdjLS4yMDgtLjI2OC0xLjc3Ni0yLjE4OC0zLjYyOS0xLjcyNS0uNjYyLjE2NS0xLjQzOS40NC0yLjAwOSAxLjQ2My0yLjE4IDMuOTEzIDQuOTY1IDguOTgzIDUuNjE1IDkuNDMzVjcybC4wMjMtLjAxNi4wMjMuMDE2di0uMDMyYy42NS0uNDUgNy43OTUtNS41MiA1LjYxNS05LjQzMy0uNTctMS4wMjMtMS4zNDctMS4yOTgtMi4wMDktMS40NjMtMS44NTMtLjQ2My0zLjQyIDEuNDU3LTMuNjI5IDEuNzI1eiIgZmlsbD0iI0IyQkFDMiIvPjwvZz48L3N2Zz4=" />
+                {D.collectionCount}
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PHRpdGxlPjc1MzFEREU0LTZCMzgtNDI4Ny04QTJBLUY2ODVGMDgzNUFGQzwvdGl0bGU+PGRlZnM+PHJlY3QgaWQ9ImEiIHg9IjU5IiB5PSI1NCIgd2lkdGg9IjU0IiBoZWlnaHQ9IjI1IiByeD0iMSIvPjxtYXNrIGlkPSJiIiB4PSIwIiB5PSIwIiB3aWR0aD0iNTQiIGhlaWdodD0iMjUiIGZpbGw9IiNmZmYiPjx1c2UgeGxpbms6aHJlZj0iI2EiLz48L21hc2s+PC9kZWZzPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC02OCAtNTYpIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGZpbGw9IiNCMkJBQzIiIGQ9Ik03MiA2MXY4LjAzOGg0LjQ0NEw4MS4xMTEgNzJ2LTIuOTYySDg0VjYxeiIvPjx1c2Ugc3Ryb2tlPSIjRURFRUVGIiBtYXNrPSJ1cmwoI2IpIiBzdHJva2Utd2lkdGg9IjIiIHhsaW5rOmhyZWY9IiNhIi8+PC9nPjwvc3ZnPg==" />
+                {D.commentsCount}
+              </div>
             </div>
-            {this.state.cont.map((data, i) => {
-              return (
-                <div key={i} className="infoStype">
-                  <div className="photo fl" />
-                  <div
-                    className="text fl"
-                    dangerouslySetInnerHTML={{ __html: data }}
-                    onClick={() => this.getImg(data)}
-                    onContextMenu={(e, data) => {
-                      this.showRightMrnu(e, data);
-                    }}
-                  />
-                  <div className="clear" />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <br />
-        <div id="editor" />
-        <div style={{ margin: "24px 0" }} />
-        <Button type="primary" onClick={this.sentInfo}>
-          发送
-        </Button>
-        <br />
-        <br />
-        <div id="menu" onClick={this.clickRightMrnu}>
-          <div className="menu">撤回消息</div>
-        </div>
-        <Modal
-          title=""
-          bodyStyle={{ textAlign: "center", padding: 0 }}
-          footer={null}
-          centered={true}
-          width="700px"
-          visible={this.state.visible}
-          onCancel={this.handleCancel}
-        >
-          <p dangerouslySetInnerHTML={{ __html: this.state.text }} />
-        </Modal>
+          );
+        })}
       </div>
     );
   }

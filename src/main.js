@@ -11,19 +11,19 @@ import io from "socket.io-client";
 if (location.pathname == "/admin.html") {
   ReactDOM.render(<Admin />, document.getElementById("Admin"));
 } else {
-  // window.$socket = io.connect("http://192.168.10.12:1337");
-  // ReactDOM.render(<Index />, document.getElementById("Index"));
-  querySiteName({ doMain: "" }).then(res => {
-    if (res.code == 0) {
-      window.$socket = io.connect("http://192.168.10.12:1337");
-      // window.$store = store;
-      // localStorage.setItem('loginfo', JSON.stringify(res.data))
-      ReactDOM.render(<Index />, document.getElementById("Index"));
-    } else {
-      // localStorage.setItem('loginfo', JSON.stringify(res.data))
-      // ReactDOM.render(
-      // 	document.getElementById('Index')
-      // );
-    }
-  });
+  window.$socket = io.connect("http://192.168.10.12:1337");
+  ReactDOM.render(<Index />, document.getElementById("Index"));
+  // querySiteName({ doMain: "" }).then(res => {
+  //   if (res.code == 0) {
+  //     window.$socket = io.connect("http://192.168.10.12:1337");
+  //     // window.$store = store;
+  //     // localStorage.setItem('loginfo', JSON.stringify(res.data))
+  //     ReactDOM.render(<Index />, document.getElementById("Index"));
+  //   } else {
+  //     // localStorage.setItem('loginfo', JSON.stringify(res.data))
+  //     // ReactDOM.render(
+  //     // 	document.getElementById('Index')
+  //     // );
+  //   }
+  // });
 }

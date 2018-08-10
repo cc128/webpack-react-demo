@@ -1,3 +1,16 @@
+.icon {
+  position: fixed;
+  bottom: 200px;
+  right: 300px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+.w-e-text-container {
+  height: auto !important;
+  max-height: 500px !important;
+  overflow-y: auto !important;
+}
 .nav {
   background: #fff;
   .logo {
@@ -18,20 +31,54 @@
     }
   }
 }
+
 .content {
+  width: 1200px;
+  margin: auto;
+  font-size: 12px;
+  .article_list {
+    height: 115px;
+    width: 700px;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    padding: 20px;
+    .info_title {
+      color: #2e3135;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 6px;
+      margin-bottom: 10px;
+    }
+    .info_number {
+      color: "#c8c8c8";
+      height: 24px;
+      line-height: 24px;
+      font-weight: 600;
+    }
+  }
+}
+.Chatroom {
   width: 100%;
   margin: auto;
   background: #fff;
-  // padding: 20px;
+  position: relative;
   overflow: hidden;
   .infoBox {
-    min-height: 300px;
-    max-height: 500px;
+    width: 490px;
+    height: 270px;
+    height: 270px;
     overflow-y: auto;
-    background: #ccc;
-    padding: 5px;
-    .infoStype {
+    padding: 10px;
+    .center {
+      color: #fff;
+      width: 100%;
       padding: 5px 0;
+      background: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      top: 0px;
+    }
+    .infoStype {
+      padding: 8px 0;
       .photo {
         width: 27px;
         height: 27px;
@@ -43,38 +90,28 @@
         background: #fff;
         border-radius: 5px;
         padding: 3px 5px;
-        max-width: 95%;
+        max-width: 89%;
         word-wrap: break-word;
         img {
           max-width: 200px !important;
+          border-radius: 5px;
         }
       }
     }
   }
-  #editor {
-    // max-height: 100px;
+  #menu {
+    width: 0; /*设置为0 隐藏自定义菜单*/
+    min-height: 25px;
+    overflow: hidden; /*隐藏溢出的元素*/
+    box-shadow: 0 1px 1px #888, 1px 0 1px #ccc;
+    position: absolute; /*自定义菜单相对与body元素进行定位*/
   }
-}
-#menu {
-  width: 0; /*设置为0 隐藏自定义菜单*/
-  min-height: 25px;
-  overflow: hidden; /*隐藏溢出的元素*/
-  box-shadow: 0 1px 1px #888, 1px 0 1px #ccc;
-  position: absolute; /*自定义菜单相对与body元素进行定位*/
-}
-.menu {
-  width: 150px;
-  height: 25px;
-  line-height: 25px;
-  padding: 0 10px;
-  background: #fff;
-  cursor: pointer;
-}
-.icon{
-  position: fixed;
-  bottom: 200px;
-  right: 300px;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
+  .menu {
+    width: 150px;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 10px;
+    background: #fff;
+    cursor: pointer;
+  }
 }

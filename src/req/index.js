@@ -56,3 +56,11 @@ export const article_list_guest = data => {
     }
   });
 };
+// 掘金前端文章
+export const get_entry_by_rank = data => {
+  return axios.get(`/v1/get_entry_by_rank`, data).then(res => {
+    if (res.status === 200) {
+      return res.data;
+    }
+  });
+};

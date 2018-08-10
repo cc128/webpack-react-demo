@@ -1,9 +1,11 @@
 import React from "react";
-import NavTop from "./home/NavTop";
 import Content from "./home/Content";
+import NavTop from "./NavTop";
+import Chatroom from "./Chatroom.jsx";
+
 import { Modal } from "antd";
 export default class Home extends React.Component {
-  state = { display: false, visible: true };
+  state = { display: false, visible: false };
   handleCancel = e => {
     console.log(e);
     this.setState({
@@ -13,8 +15,9 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-        {/* <NavTop /> */}
+        <NavTop />
         <br />
+        <Content />
         <Modal
           title="对话框"
           footer={null}
@@ -22,7 +25,7 @@ export default class Home extends React.Component {
           visible={this.state.visible}
           onCancel={this.handleCancel}
         >
-          <Content />
+          <Chatroom />
         </Modal>
         <div
           onClick={() => {

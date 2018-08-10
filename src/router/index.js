@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 // import Home from '../page/home/home';
-import NavTop from '../page/home/NavTop';
 import Home from '../page/Home';
 
 import music from '../page/home/music';
