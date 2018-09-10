@@ -8,9 +8,6 @@ export default class Content extends React.Component {
   };
 
   componentDidMount() {
-    //模块加载前
-  }
-  componentDidMount() {
     // https://timeline-merger-ms.juejin.im/v1/get_entry_by_rank?src=web&limit=20&category=
     get_entry_by_rank({
       params: {

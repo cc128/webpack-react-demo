@@ -14,5 +14,6 @@ module.exports = merge(common, {
     inline: true,
     port: 9000,
     open: true,
+    host: '0.0.0.0'
   }
 });

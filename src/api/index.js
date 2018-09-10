@@ -10,7 +10,7 @@ import { Toast } from "antd-mobile";
 // axios.defaults.baseURL = "http://192.168.1.15:8080/user"; //王
 // axios.defaults.baseURL = "http://192.168.1.17:8080/user"; //曾
 // axios.defaults.baseURL = "http://localhost:3002";
-axios.defaults.baseURL = "http://192.168.10.12";
+axios.defaults.baseURL = "http://"+location.hostname;
 
 // axios.defaults.baseURL = "https://m.toutiao.com";
 // axios.defaults.baseURL = "/api";

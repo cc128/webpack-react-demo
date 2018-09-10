@@ -47,10 +47,9 @@ export default class Chatroom extends React.Component {
       visible: false
     });
   };
-  componentDidMount() {
     //模块加载前
-  }
   componentDidMount() {
+    alert(2)
     // 监听聊天消息
     this.state.socket.on("chatInfo", msg => {
       let arr = [];
@@ -72,6 +71,7 @@ export default class Chatroom extends React.Component {
     });
     // 监听在线人数
     this.state.socket.on("updatePerson", num => {
+      alert(1)
       this.setState({ userNumber: num.userNumber });
     });
     let E = window.wangEditor;
