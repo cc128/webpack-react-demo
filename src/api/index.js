@@ -37,7 +37,11 @@ axios.interceptors.request.use(
       loginfoData = JSON.parse(localStorage.getItem("loginfoData"));
       // config.data.token = loginfoData.token
     }
-    config.data = qs.stringify(config.data);
+    if(config.url === "/uploadfile"){
+      config.data = config.data;
+    } else {
+      config.data = qs.stringify(config.data);
+    }
     return config;
   },
   error => {
@@ -55,10 +59,7 @@ axios.interceptors.response.use(
       localStorage.setItem("loginfo", JSON.stringify(res.data.data));
     }
     if (res.data.code === 0) {
-      if (res.data.msg !== "成功") {
-        Toast.offline("网络错误", 1);
-        // notification.success({ message: '成功', description: res.data.msg })
-      }
+        notification.success({ message: '成功', description: res.data.msg })
     } else if (res.data.code == 502) {
       notification.warning({ message: "警告", description: res.data.msg });
       this.props.history.push("/");

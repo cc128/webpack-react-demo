@@ -2,12 +2,12 @@ import React from "react";
 import Content from "./home/Content";
 import NavTop from "./NavTop";
 import Chatroom from "./Chatroom.jsx";
+import { uploadfile } from "../req";
 
 import { Modal } from "antd";
 export default class Home extends React.Component {
-  state = { display: false, visible: false };
+  state = { display: false, visible: false, filesData: [] };
   handleCancel = e => {
-    console.log(e);
     this.setState({
       visible: false
     });
@@ -15,9 +15,37 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-        <NavTop />
+        <div className="upImg">
+          <img alt="" id="img" />
+          <input
+            type="file"
+            name=""
+            id=""
+            onChange={e => {
+              this.setState(
+                {
+                  filesData: e.target.files[0]
+                },
+                () => {
+                  var formData = new FormData();
+                  formData.append("file", this.state.filesData);
+                  console.log(this.state.filesData);
+                  console.log(formData);
+                  uploadfile(formData).then(res=>{
+                    if(res.code === 0){}
+                  })
+                  let img = document.getElementById("img");
+                  img.src = URL.createObjectURL(this.state.filesData);
+                  //销毁上面创建的链接
+                  //URL.revokeObjectURL(path);
+                }
+              );
+            }}
+          />
+        </div>
+        {/* <NavTop /> */}
         <br />
-        <Content />
+        {/* <Content /> */}
         <Modal
           title="对话框"
           footer={null}

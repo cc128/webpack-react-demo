@@ -64,3 +64,11 @@ export const get_entry_by_rank = data => {
     }
   });
 };
+// 上传
+export const uploadfile = data => {
+  return axios.post(`/uploadfile`, data).then(res => {
+    if (res.status === 200) {
+      return res.data;
+    }
+  });
+};

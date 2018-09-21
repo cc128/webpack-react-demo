@@ -42,7 +42,11 @@ export default class Content extends React.Component {
                   )}
                 </span>
                 <span style={{ color: "#c8c8c8" }}>
-                  {D.tags[0].title} {D.tags[1] ? " / " + D.tags[1].title : ""}
+                   · 
+                  {/* {D.tags[0].title} {D.tags[1] ? " / " + D.tags[1].title : ""} */}
+                  {D.tags.map(e => {
+                    return <span key={e.id}>{"/" + e.title}</span>;
+                  })}
                 </span>
               </div>
               <div className="info_title">{D.title}</div>
