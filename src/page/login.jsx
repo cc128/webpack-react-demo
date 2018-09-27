@@ -1,7 +1,7 @@
 import React from "react";
 import { IsPC } from "../tool/tool.js";
 import { user_login, query_page_method } from "../req";
-import { Button, InputItem, WingBlank } from "antd-mobile";
+// import { Button, InputItem, WingBlank } from "antd-mobile";
 import md5 from "md5";
 export default class login extends React.Component {
   state = { userName: "17628285312", pws: "", praise: false, loading: false };

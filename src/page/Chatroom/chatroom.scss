@@ -1,0 +1,62 @@
+.Chatroom {
+  width: 100%;
+  margin: auto;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  .infoBox {
+    width: 490px;
+    height: 270px;
+    overflow-y: auto;
+    padding: 10px;
+    .center {
+      color: #fff;
+      width: 100%;
+      padding: 5px 0;
+      background: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      top: 0px;
+    }
+    .infoStype {
+      padding: 8px 0;
+      .photo {
+        width: 27px;
+        height: 27px;
+        border-radius: 50%;
+        background: #40d2ff;
+      }
+      .text {
+        margin-left: 20px;
+        background: #fff;
+        border-radius: 5px;
+        padding: 3px 5px;
+        max-width: 89%;
+        word-wrap: break-word;
+        img {
+          max-width: 200px !important;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+  #menu {
+    width: 0; /*设置为0 隐藏自定义菜单*/
+    min-height: 25px;
+    overflow: hidden; /*隐藏溢出的元素*/
+    box-shadow: 0 1px 1px #888, 1px 0 1px #ccc;
+    position: absolute; /*自定义菜单相对与body元素进行定位*/
+  }
+  .menu {
+    width: 150px;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 10px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .w-e-text-container {
+    height: auto !important;
+    max-height: 500px !important;
+    overflow-y: auto !important;
+  }
+}

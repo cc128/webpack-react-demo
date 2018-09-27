@@ -1,8 +1,9 @@
 import React from "react";
 import { get_entry_by_rank } from "../../req";
-import { getTimeSpan } from "../../tool/tool.js";
+import { getTimeSpan } from "../../tool/tool";
 
-export default class Content extends React.Component {
+
+export default class Article extends React.Component {
   state = {
     cont: []
   };
@@ -25,7 +26,7 @@ export default class Content extends React.Component {
   }
   render() {
     return (
-      <div className="content">
+      <div className="article">
         {this.state.cont.map(D => {
           return (
             <div className="article_list" key={D.objectId}>
@@ -42,10 +43,9 @@ export default class Content extends React.Component {
                   )}
                 </span>
                 <span style={{ color: "#c8c8c8" }}>
-                   · 
                   {/* {D.tags[0].title} {D.tags[1] ? " / " + D.tags[1].title : ""} */}
                   {D.tags.map(e => {
-                    return <span key={e.id}>{"/" + e.title}</span>;
+                    return <span key={e.id}>{" · " + e.title}</span>;
                   })}
                 </span>
               </div>

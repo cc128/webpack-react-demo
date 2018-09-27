@@ -1,7 +1,6 @@
 //引入axios
 import axios from "axios";
 import { notification } from "antd";
-import { Toast } from "antd-mobile";
 
 // 请求的默认地址
 // axios.defaults.baseURL = "http://10.163.126.142:8080/user";
@@ -10,7 +9,7 @@ import { Toast } from "antd-mobile";
 // axios.defaults.baseURL = "http://192.168.1.15:8080/user"; //王
 // axios.defaults.baseURL = "http://192.168.1.17:8080/user"; //曾
 // axios.defaults.baseURL = "http://localhost:3002";
-axios.defaults.baseURL = "http://"+location.hostname;
+axios.defaults.baseURL = "http://"+location.hostname+":8085";
 
 // axios.defaults.baseURL = "https://m.toutiao.com";
 // axios.defaults.baseURL = "/api";
@@ -64,9 +63,7 @@ axios.interceptors.response.use(
       notification.warning({ message: "警告", description: res.data.msg });
       this.props.history.push("/");
     } else if (res.data.code == 504) {
-      Toast.offline("网络错误", 1);
     } else if (res.data.m === "ok") {
-    //   Toast.offline("网络错误", 1);
     } else {
       notification.warning({ message: "警告", description: res.data.msg });
     }
@@ -74,8 +71,6 @@ axios.interceptors.response.use(
   },
   function(err) {
     // notification.warning({ message: '警告', description: '网络错误' })
-    Toast.hide();
-    Toast.offline("请求超时", 1);
     return Promise.reject(err);
   }
 );

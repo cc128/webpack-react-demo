@@ -13,7 +13,9 @@ module.exports = {
   resolve: {
     extensions: [".js", ".jsx"],
     alias: {
-      req: path.resolve(__dirname, "./src/req")
+      "@req": path.resolve(__dirname, "./src/req"),
+      "@page": path.resolve(__dirname, "./src/page"),
+      "@img": path.resolve(__dirname, "./src/images")
     }
   },
   devtool: "cheap-module-source-map",
